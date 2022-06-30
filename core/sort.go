@@ -159,3 +159,60 @@ func partition2(nums []int, l, r int) (lp, rp int) {
 	}
 	return
 }
+
+func RadixSort(nums []int) {
+	maxDigits := func() int {
+		max := 1
+		for _, num := range nums {
+			cnt := countDigits(num)
+			if cnt > max {
+				max = cnt
+			}
+		}
+		return max
+	}()
+
+	buckets := make([][]int, 10)
+
+	for i := range buckets {
+		buckets[i] = []int{}
+	}
+
+	for i := 1; i <= maxDigits; i++ {
+		for _, num := range nums {
+			d := getDigit(num, i)
+			buckets[d] = append(buckets[d], num)
+
+		}
+
+		idx := 0
+		for j := range buckets {
+			for len(buckets[j]) > 0 {
+				nums[idx] = buckets[j][0]
+				buckets[j] = buckets[j][1:]
+				idx++
+			}
+		}
+	}
+}
+
+func getDigit(num int, n int) int {
+	res := 0
+	for i := 0; i < n; i++ {
+		if res == 0 && num == 0 {
+			return res
+		}
+		res = num % 10
+		num /= 10
+	}
+	return res
+}
+
+func countDigits(num int) int {
+	cnt := 1
+	for num >= 10 {
+		num /= 10
+		cnt++
+	}
+	return cnt
+}
