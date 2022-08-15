@@ -81,8 +81,8 @@ func (hs *HeapStruct) heapify(node int) {
 }
 
 func (hs *HeapStruct) heapInsert(node int) {
-	for parent := (node - 1) / 2; node > 0 && parent >= 0 && hs.comparator(hs.arr[node], hs.arr[parent]) <= 0; parent = (node - 1) / 2 {
-		swap(hs.arr, node, parent)
-		node = parent
+	for hs.comparator(hs.arr[node], hs.arr[(node-1)/2]) < 0 {
+		swap(hs.arr, node, (node-1)/2)
+		node = (node - 1) / 2
 	}
 }

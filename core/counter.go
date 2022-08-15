@@ -33,7 +33,7 @@ func areEquals(arr1, arr2 []int) bool {
 	return true
 }
 func Test() {
-	arr := randGenArr(3e7)
+	arr := randGenArr(1e5)
 	test0 := copySlice(arr)
 	test1 := copySlice(arr)
 	test2 := copySlice(arr)
@@ -82,4 +82,39 @@ func HeapTest() {
 
 	fmt.Println(hps.Sort())
 
+}
+
+func GreatHeapTest() {
+	p := &wrappedObj{9945}
+
+	hp := NewGreatHeap([]*wrappedObj{
+		{100},
+		{50},
+		{10},
+		{45},
+		{45},
+		{23},
+		{32},
+		{145},
+		p,
+	}, func(a, b *wrappedObj) int {
+		return a.a - b.a
+	})
+
+	hp.Print()
+
+	fmt.Println(hp.Pop().a)
+
+	hp.Print()
+
+	hp.Push(&wrappedObj{36})
+
+	hp.Print()
+
+	hp.Remove(p)
+	fmt.Println("df")
+	hp.Print()
+	for k, v := range hp.reversedMap {
+		fmt.Println(k, v)
+	}
 }

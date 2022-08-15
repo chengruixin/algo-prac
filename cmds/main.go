@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	core.Test()
+	core.GreatHeapTest()
 
 }
